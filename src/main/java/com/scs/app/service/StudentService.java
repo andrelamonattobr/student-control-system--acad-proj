@@ -21,4 +21,15 @@ public class StudentService {
         return studentRepository.findById(id).orElse(null);
     }
 
+    public boolean createStudent(String name){
+        try {
+            StudentModel studentModel = new StudentModel();
+            studentModel.setName(name);
+            studentRepository.saveAndFlush(studentModel);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }
