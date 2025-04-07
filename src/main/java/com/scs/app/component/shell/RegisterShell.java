@@ -18,7 +18,7 @@ public class RegisterShell {
 
     @ShellMethod(value = "Registrar nova turma")
     public String registrar_turma(@ShellOption(help = "Nome da turma") String className){
-        if (classService.createStudent(className))
+        if (classService.createClass(className))
             return "Turma criada";
         else
             return "Turma NAO criada";

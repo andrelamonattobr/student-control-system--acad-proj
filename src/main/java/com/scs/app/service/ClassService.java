@@ -22,7 +22,7 @@ public class ClassService {
         return classRepository.findById(id).orElse(null);
     }
 
-    public boolean createStudent(String name){
+    public boolean createClass(String name){
         try {
             ClassModel classModel = new ClassModel();
             classModel.setName(name);

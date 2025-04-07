@@ -1,5 +1,8 @@
 package com.scs.app.component.shell;
 
+import com.scs.app.repository.StudentClassRepository;
+import com.scs.app.service.StudentClassService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -7,10 +10,17 @@ import org.springframework.shell.standard.ShellOption;
 @ShellComponent
 public class AssignShell {
 
+    @Autowired
+    StudentClassService classService;
+
     @ShellMethod(value = "Vincular um aluno a uma turma")
-    public String vircular_turma_aluno(@ShellOption(help = "Identificador da turma") Long classId,
+    public String vincular_turma_aluno(@ShellOption(help = "Identificador da turma") Long classId,
                                        @ShellOption(help = "Identificador do aluno") Long studentId){
-        return "";
+
+        if (classService.assignStudentToClass(classId, studentId))
+            return "Aluno vinculado com sucesso";
+        return "Erro durante a vinculacao de turma e aluna";
+
     }
 
     @ShellMethod(value = "Assinalar presenca para um aluno em uma turma")

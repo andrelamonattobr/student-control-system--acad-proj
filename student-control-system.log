@@ -11,3 +11,17 @@
 1743982452750:listar_alunos
 1743982729279:registrar_aluno "Aluno teste"
 1743982736432:listar_alunos
+1744047045963:listar_turmas_alunos
+1744047140464:listar_alunos
+1744047145424:listar_turmas
+1744047188474:registrar_turma "Turma 1"
+1744047194190:listar_turmas
+1744047199513:help
+1744047216348:vincular_turma_aluno 1 1
+1744047258632:vincular_turma_aluno
+1744047285343:vircular_turma_aluno 1 1
+1744047292022:listar_turmas_alunos
+1744047746505:registrar_turma "teste"
+1744047779924:vincular_turma_aluno 1 1
+1744047784807:quit
+1744047831780:listar_turmas_alunos
