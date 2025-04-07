@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.shell.table.BeanListTableModel;
-import org.springframework.shell.table.BorderStyle;
-import org.springframework.shell.table.Table;
-import org.springframework.shell.table.TableBuilder;
+import org.springframework.shell.table.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -80,30 +77,23 @@ public class QueryShell {
 
     @ShellMethod(value = "Listagem das tumas vinculadas aos alunos")
     public Table listar_turmas_alunos(){
+        List<Object[]> tableData = new ArrayList<>();
 
-        class studentClassDTO{
-            final Long classId;
-            final Long studentId;
-            public studentClassDTO(Long classId, Long studentId) {
-                this.classId = classId;
-                this.studentId = studentId;
-            }
-        }
-
-        List<studentClassDTO> studentClassDTOList = new ArrayList<>();
-
+        tableData.add(new String[]{"Id unico", "Id da turma", "Id do aluno"});
         studentClassService.listAll().forEach(studentClass -> {
-            System.out.println(studentClass.toString());
-            studentClassDTOList.add(new studentClassDTO(studentClass.getFk_class().getId(), studentClass.getFk_student().getId()));
+            tableData.add(new String[]{
+                    String.valueOf(studentClass.getId()),
+                    String.valueOf(studentClass.getFk_class().getId()),
+                    String.valueOf(studentClass.getFk_student().getId())});
         });
 
-        BeanListTableModel<studentClassDTO> classModelBeanListTableModel = new BeanListTableModel<>(
-                studentClassDTOList,
-                "classId",
-                "studentId"
-        );
+        Object[][] data = tableData.toArray(new Object[0][]);
 
-        TableBuilder tableBuilder = new TableBuilder(classModelBeanListTableModel);
+        ArrayTableModel model = new ArrayTableModel(data);
+
+        TableBuilder tableBuilder = new TableBuilder(model);
+
+        tableBuilder.addHeaderBorder(BorderStyle.fancy_light);
 
         tableBuilder.addInnerBorder(BorderStyle.fancy_light)
                 .addHeaderBorder(BorderStyle.fancy_double)
